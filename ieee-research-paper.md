@@ -399,7 +399,9 @@ The authors thank the research mentors and Del Norte High School's engineering p
 
 Srinivas Nampalli is a rising senior at Del Norte High School, San Diego, California. He is passionate about the intersection of artificial intelligence and robotics, with particular interest in industrial automation and predictive analytics. His research focuses on developing practical machine learning solutions for real-world engineering challenges. He has completed advanced coursework in computer science, machine learning, and robotics, and plans to pursue electrical engineering and computer science at the university level.
 
+Tanav Kambhampati is a rising senior at Del Norte High School, San Diego, California. He is passionate about robotics and artificial intelligence applications in industrial settings. His interests span machine learning model optimization, sensor fusion techniques, and the development of intelligent automation systems. He has demonstrated proficiency in advanced mathematics, programming, and engineering design, with aspirations to pursue computer engineering and artificial intelligence research at the collegiate level.
+
 Saathvik Gampa is a rising senior at Del Norte High School, San Diego, California. He is passionate about the convergence of finance and technology, with specific interests in quantitative analysis and algorithmic systems. His work explores the application of data science and machine learning to both financial markets and industrial systems. He has strong foundations in mathematics, statistics, and programming, with plans to study financial engineering and computer science in college.
 
-Tanav Kambhampati is a rising senior at Del Norte High School, San Diego, California. He is passionate about robotics and artificial intelligence applications in industrial settings. His interests span machine learning model optimization, sensor fusion techniques, and the development of intelligent automation systems. He has demonstrated proficiency in advanced mathematics, programming, and engineering design, with aspirations to pursue computer engineering and artificial intelligence research at the collegiate level.
+
 
