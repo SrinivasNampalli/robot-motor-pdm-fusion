@@ -172,17 +172,7 @@ SENSOR MEASUREMENT STATISTICS
 
 The position sensor exhibits the highest anomaly rate (24.9%), indicating mechanical issues as primary failure modes. Voltage outliers represent ADC saturation limits rather than actual electrical measurements, reflecting sensor digitization artifacts.
 
-### B. Three-Dimensional Feature Analysis
-
-Figure 1 presents comprehensive 3D visualizations of the motor sensor data across multiple perspectives. The upper panels demonstrate the relationship between position, temperature, and voltage measurements, with clear motor-specific clustering patterns visible when colored by Motor ID. The temporal analysis reveals voltage variations over time, while the normalized feature space (bottom right) shows all features scaled to [0,1] for comparative analysis.
-
-![3D Feature Analysis - Motor Data](plots/3d_feature_analysis_interactive.png)
-
-*Fig. 1. Three-dimensional feature space analysis showing multi-sensor relationships across six motors. Panels display: (a) Position-Temperature-Voltage colored by Motor ID, (b) Temporal analysis with voltage gradient, (c) Individual motor comparison, (d) Voltage-Time-Position with temperature gradient, (e) Motor centroids with data clouds, and (f) Normalized feature space.*
-
-The motor centroid visualization particularly highlights the distinct operational profiles of each motor, with Motor 3 showing higher average temperatures and Motor 5 exhibiting greater position variance, suggesting potential mechanical wear.
-
-### C. Model Performance Comparison
+### B. Model Performance Comparison
 
 Table II presents comprehensive performance metrics across the three ML approaches.
 
@@ -197,7 +187,7 @@ MODEL PERFORMANCE METRICS (SESSION-BASED SPLIT)
 
 Random Forest achieves the highest ROC-AUC score (0.871) and PR-AUC (0.824), demonstrating superior discrimination between normal and anomalous states with proper session-based validation. The model's ensemble nature provides robustness against sensor noise while maintaining interpretability through feature importance analysis.
 
-### D. Feature Importance and Correlation Analysis
+### C. Feature Importance and Correlation Analysis
 
 Figure 2 illustrates the critical features driving anomaly detection. Position emerges as the dominant feature with an importance score of 0.492, followed by voltage (0.184), motor_encoded (0.121), temperature (0.087), temp_rolling_mean (0.079), voltage_rolling_std (0.037). The importance values sum to 1.000, indicating proper normalization without encoding feature dominance. The correlation heatmap reveals a strong positive correlation (0.98) between temperature and its rolling mean, as expected for smoothed temporal features, while voltage shows moderate negative correlation with its rolling standard deviation (-0.41).
 
@@ -211,7 +201,7 @@ The correlation matrix (Figure 3) provides insights into feature relationships. 
 
 *Fig. 3. Feature correlation heatmap revealing strong temporal feature relationships and moderate cross-sensor correlations.*
 
-### E. Principal Component Analysis
+### D. Principal Component Analysis
 
 The PCA visualization (Figure 4) demonstrates clear separation between normal and anomalous operations in reduced dimensional space. The first three principal components capture 73.5% of total variance (PC1: 36.2%, PC2: 19.6%, PC3: 17.7%), with anomalies forming distinct clusters primarily along PC1 and PC2 axes.
 
@@ -219,7 +209,7 @@ The PCA visualization (Figure 4) demonstrates clear separation between normal an
 
 *Fig. 4. Three-dimensional PCA projection showing anomaly clustering. Normal operations (light blue) concentrate near the origin while anomalies (red) form distinct peripheral clusters.*
 
-### F. Learning Curve Analysis
+### E. Learning Curve Analysis
 
 Figure 5 presents learning curves for Random Forest and Extra Trees classifiers. Both models demonstrate rapid convergence, with Random Forest achieving stable performance after approximately 20,000 training samples. The minimal gap between training and validation scores indicates good generalization without significant overfitting.
 
@@ -227,7 +217,7 @@ Figure 5 presents learning curves for Random Forest and Extra Trees classifiers.
 
 *Fig. 5. Learning curves showing model convergence. Random Forest (left) achieves optimal performance with minimal overfitting, while Extra Trees (right) shows similar patterns with slightly higher variance.*
 
-### G. Model Evaluation Dashboard
+### F. Model Evaluation Dashboard
 
 The comprehensive evaluation dashboard (Figure 6) combines ROC curves, feature importance ranking, and confusion matrix analysis. With session-based splitting, Random Forest and XGBoost achieve ROC-AUC scores of 0.871 and 0.854 respectively, indicating strong discriminative ability without data leakage. All performance metrics reported use this clean evaluation protocol.
 
@@ -250,7 +240,7 @@ The comprehensive evaluation dashboard (Figure 6) combines ROC curves, feature i
 - Anomaly Class: Precision=72.3%, Recall=75.9%, F1=74.1%
 - Overall Accuracy: 85.6%
 
-### H. Real-time Performance
+### G. Real-time Performance
 
 Deployment metrics demonstrate production readiness (tested on Intel i7-10750H, 16GB RAM):
 
@@ -264,7 +254,7 @@ Deployment metrics demonstrate production readiness (tested on Intel i7-10750H, 
 - Batch Throughput: ~641 predictions/second
 - API Response Time: <100ms (99th percentile including network overhead)
 
-### I. Anomaly Clustering Analysis
+### H. Anomaly Clustering Analysis
 
 Analysis reveals three distinct anomaly clusters:
 
@@ -274,7 +264,7 @@ Analysis reveals three distinct anomaly clusters:
 
 This clustering suggests different failure modes requiring targeted maintenance strategies.
 
-### J. Fault Injection and Recovery Evaluation
+### I. Fault Injection and Recovery Evaluation
 
 The FDIR loop is validated through scripted fault injections executed both in simulation and on the physical testbed. Sensor dropouts, additive bias, and stuck-actuator scenarios are replayed while the monitoring stack captures detection latency (residual breach to alert), false-alarm rate, and mean time to recovery (MTTR). Each injection is annotated with the fault family and code from the taxonomy defined in §III-F, enabling automated coverage analysis. Structured logs, synchronized to the same NTP source as the PLC, feed a dashboard that visualizes residuals, recovery ladder steps, and safe-stop escalations. The campaign confirms that lightweight residual monitors combined with the recovery state machine can either clear transient faults through retry/replan actions or command a controlled safe stop within the configured time budget.
 
