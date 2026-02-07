@@ -1,6 +1,6 @@
 """
-🎯 ML Model Predictor Interface
-Allows others to use your trained models for predictions!
+ML Model Predictor Interface
+Allows others to use your trained models for predictions.
 """
 
 import joblib

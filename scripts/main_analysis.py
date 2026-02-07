@@ -1,6 +1,6 @@
 """
-🔧 COMPREHENSIVE MOTOR PREDICTIVE MAINTENANCE ANALYSIS
-Research-grade analysis with advanced visualizations and machine learning
+Motor Predictive Maintenance Analysis
+Research-grade analysis with advanced visualizations and machine learning.
 
 This is the main execution script that orchestrates the entire analysis pipeline.
 """
@@ -19,7 +19,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 def main():
-    print("STARTING COMPREHENSIVE MOTOR PREDICTIVE MAINTENANCE ANALYSIS")
+    print("STARTING MOTOR PREDICTIVE MAINTENANCE ANALYSIS")
     print("=" * 70)
     
     # Create necessary directories
@@ -34,21 +34,23 @@ def main():
     summary = loader.get_data_summary()
     
     # Print comprehensive data summary
-    print(f"\n📊 DATASET OVERVIEW:")
+    # Print comprehensive data summary
+    print(f"\nDATASET OVERVIEW:")
     print(f"   • Total measurements: {summary['total_rows']:,}")
     print(f"   • Test sessions: {summary['total_sessions']}")
     print(f"   • Motors analyzed: {summary['total_motors']}")
     print(f"   • Test duration: {summary['time_range']['duration_hours']:.2f} hours")
     print(f"   • Data collection period: {summary['time_range']['min']:.0f} - {summary['time_range']['max']:.0f}")
     
-    print(f"\n🌡️ SENSOR STATISTICS:")
+    print(f"\nSENSOR STATISTICS:")
     for sensor, stats in summary['sensor_stats'].items():
         print(f"   • {sensor.title()}:")
         print(f"     - Range: {stats['min']:.2f} to {stats['max']:.2f}")
         print(f"     - Average: {stats['mean']:.2f}")
     
     # Step 2: Anomaly Detection
-    print("\n🚨 STEP 2: ANOMALY DETECTION")
+    # Step 2: Anomaly Detection
+    print("\nSTEP 2: ANOMALY DETECTION")
     print("-" * 50)
     
     anomaly_data = loader.detect_anomalies(method='iqr')
@@ -64,32 +66,33 @@ def main():
         sensor_rate = (sensor_anomalies / len(anomaly_data)) * 100
         print(f"   • {sensor.title()} anomalies: {sensor_anomalies:,} ({sensor_rate:.1f}%)")
     
-    # Step 3: Comprehensive EDA and Visualization
-    print("\n📊 STEP 3: EXPLORATORY DATA ANALYSIS & VISUALIZATION")
+    # Step 3: EDA and Visualization
+    print("\nSTEP 3: EXPLORATORY DATA ANALYSIS & VISUALIZATION")
     print("-" * 50)
     
     visualizer = MotorEDAVisualizer(combined_data)
     
-    print("   🎨 Creating overview dashboard...")
+    print("   Creating overview dashboard...")
     visualizer.create_overview_dashboard()
     
-    print("   🔍 Analyzing sensor correlations...")
+    print("   Analyzing sensor correlations...")
     correlation_matrix, pca_variance = visualizer.analyze_sensor_correlations()
     
-    print("   🚨 Creating anomaly detection plots...")
+    print("   Creating anomaly detection plots...")
     anomaly_counts, severity_matrix = visualizer.create_anomaly_detection_plots(anomaly_data)
     
-    print("   🌐 Generating interactive dashboard...")
+    print("   Generating interactive dashboard...")
     interactive_fig = visualizer.create_interactive_dashboard()
     
-    print("   📈 Running statistical analysis...")
+    print("   Running statistical analysis...")
     stats_report = visualizer.statistical_analysis_report()
     
     # Step 4: Research Insights Summary
-    print("\n🎯 STEP 4: KEY RESEARCH INSIGHTS")
+    # Step 4: Research Insights Summary
+    print("\nSTEP 4: KEY RESEARCH INSIGHTS")
     print("-" * 50)
     
-    print(f"   📈 CORRELATION INSIGHTS:")
+    print(f"   CORRELATION INSIGHTS:")
     strong_correlations = []
     for i, sensor1 in enumerate(['temperature', 'voltage', 'position']):
         for j, sensor2 in enumerate(['temperature', 'voltage', 'position']):
@@ -101,11 +104,11 @@ def main():
                     print(f"     • {strength} {direction} correlation between {sensor1} and {sensor2}: {corr_val:.3f}")
                     strong_correlations.append((sensor1, sensor2, corr_val))
     
-    print(f"\n   🎯 PCA INSIGHTS:")
+    print(f"\n   PCA INSIGHTS:")
     print(f"     • First PC explains {pca_variance[0]*100:.1f}% of variance")
     print(f"     • First 2 PCs explain {(pca_variance[0] + pca_variance[1])*100:.1f}% of variance")
     
-    print(f"\n   🚨 ANOMALY INSIGHTS:")
+    print(f"\n   ANOMALY INSIGHTS:")
     most_anomalous_session = anomaly_counts.idxmax()
     most_anomalous_count = anomaly_counts.max()
     print(f"     • Most anomalous session: {most_anomalous_session} ({most_anomalous_count} anomalies)")
@@ -116,11 +119,11 @@ def main():
     print(f"     • Most reliable motor: {motor_anomaly_rates.index[-1]} ({motor_anomaly_rates.iloc[-1]*100:.1f}% anomaly rate)")
     
     # Step 5: Generate Research Report
-    print("\n📝 STEP 5: GENERATING RESEARCH REPORT")
+    print("\nSTEP 5: GENERATING RESEARCH REPORT")
     print("-" * 50)
     
     report_content = f"""
-# 🔧 Motor Predictive Maintenance Research Report
+# Motor Predictive Maintenance Research Report
 
 ## Executive Summary
 This analysis examined {summary['total_rows']:,} sensor measurements from {summary['total_sessions']} test sessions across {summary['total_motors']} motors over {summary['time_range']['duration_hours']:.2f} hours.
@@ -174,19 +177,19 @@ This analysis examined {summary['total_rows']:,} sensor measurements from {summa
     with open('Motor_Predictive_Maintenance_Report.md', 'w') as f:
         f.write(report_content)
     
-    print("   ✅ Research report saved as: Motor_Predictive_Maintenance_Report.md")
+    print("   Research report saved as: Motor_Predictive_Maintenance_Report.md")
     
     # Final Summary
-    print("\n🎉 ANALYSIS COMPLETE!")
+    print("\nANALYSIS COMPLETE!")
     print("=" * 70)
-    print(f"   📁 Generated Files:")
+    print(f"   Generated Files:")
     print(f"      • plots/overview_dashboard.png")
     print(f"      • plots/correlation_analysis.png") 
     print(f"      • plots/anomaly_analysis.png")
     print(f"      • plots/interactive_dashboard.html")
     print(f"      • Motor_Predictive_Maintenance_Report.md")
     
-    print(f"\n   🚀 Ready for Machine Learning Phase!")
+    print(f"\n   Ready for Machine Learning Phase!")
     print(f"      • {len(anomaly_data)} labeled samples ready for training")
     print(f"      • {total_anomalies} positive anomaly cases identified")
     print(f"      • Multi-sensor time series data preprocessed")

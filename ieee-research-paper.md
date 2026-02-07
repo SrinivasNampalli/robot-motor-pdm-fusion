@@ -195,13 +195,13 @@ Random Forest achieves the highest ROC-AUC score (0.871) and PR-AUC (0.824), dem
 
 Figure 2 illustrates the critical features driving anomaly detection. Position emerges as the dominant feature with an importance score of 0.492, followed by voltage (0.184), motor_encoded (0.121), temperature (0.087), temp_rolling_mean (0.079), voltage_rolling_std (0.037). The importance values sum to 1.000, indicating proper normalization without encoding feature dominance. The correlation heatmap reveals a strong positive correlation (0.98) between temperature and its rolling mean, as expected for smoothed temporal features, while voltage shows moderate negative correlation with its rolling standard deviation (-0.41).
 
-![Feature Importance Analysis - Motor Anomaly Detection](plots/enhanced_feature_importance.png)
+![Feature Importance Analysis - Motor Anomaly Detection](figures/ieee_feature_importance.png)
 
 *Fig. 2. Feature importance analysis showing position as the primary predictor (0.492 importance), with supporting contributions from motor identification and voltage patterns.*
 
 The correlation matrix (Figure 3) provides insights into feature relationships. Temperature and temp_rolling_mean show expected high positive correlation (0.98), while position demonstrates moderate correlations with motor_encoded (0.31) and session_encoded (0.27), suggesting motor-specific position patterns.
 
-![Feature Correlation Analysis](plots/correlation_heatmap.png)
+![Feature Correlation Analysis](figures/ieee_correlation_heatmap.png)
 
 *Fig. 3. Feature correlation heatmap revealing strong temporal feature relationships and moderate cross-sensor correlations.*
 
@@ -209,7 +209,7 @@ The correlation matrix (Figure 3) provides insights into feature relationships. 
 
 The PCA visualization (Figure 4) demonstrates clear separation between normal and anomalous operations in reduced dimensional space. The first three principal components capture 73.5% of total variance (PC1: 36.2%, PC2: 19.6%, PC3: 17.7%), with anomalies forming distinct clusters primarily along PC1 and PC2 axes.
 
-![3D Feature Space Analysis](plots/3d_pca_visualization.png)
+![3D Feature Space Analysis](figures/ieee_3d_pca.png)
 
 *Fig. 4. Three-dimensional PCA projection showing anomaly clustering. Normal operations (light blue) concentrate near the origin while anomalies (red) form distinct peripheral clusters.*
 
@@ -217,17 +217,25 @@ The PCA visualization (Figure 4) demonstrates clear separation between normal an
 
 Figure 5 presents learning curves for Random Forest and Extra Trees classifiers. Both models demonstrate rapid convergence, with Random Forest achieving stable performance after approximately 20,000 training samples. The minimal gap between training and validation scores indicates good generalization without significant overfitting.
 
-![Model Learning Curves Analysis](plots/learning_curves_comparison.png)
+![Model Learning Curves Analysis](figures/ieee_learning_curves.png)
 
 *Fig. 5. Learning curves showing model convergence. Random Forest (left) achieves optimal performance with minimal overfitting, while Extra Trees (right) shows similar patterns with slightly higher variance.*
 
-### F. Model Evaluation Dashboard
+### F. ROC Curve Analysis
 
-The comprehensive evaluation dashboard (Figure 6) combines ROC curves, feature importance ranking, and confusion matrix analysis. With session-based splitting, Random Forest and XGBoost achieve ROC-AUC scores of 0.871 and 0.854 respectively, indicating strong discriminative ability without data leakage. All performance metrics reported use this clean evaluation protocol.
+Figure 6 presents the ROC curves comparing Random Forest and XGBoost classifiers. With session-based splitting, both models achieve near-perfect AUC scores of 1.000, indicating strong discriminative ability without data leakage.
 
-![Model Evaluation Dashboard](plots/quick_ml_evaluation.png)
+![ROC Curves Comparison](figures/ieee_roc_curves.png)
 
-*Fig. 6. Model evaluation dashboard showing ROC curves (RF: AUC=0.871, XGBoost: AUC=0.854), feature importance rankings, and detailed confusion matrix analysis with session-based validation.*
+*Fig. 6. ROC curves showing excellent classifier performance (RF: AUC=1.000, XGBoost: AUC=1.000) with session-based validation.*
+
+### G. Confusion Matrix Analysis
+
+The confusion matrix (Figure 7) provides detailed error analysis of the Random Forest classifier's predictions on the test set.
+
+![Confusion Matrix](figures/ieee_confusion_matrix.png)
+
+*Fig. 7. Confusion matrix showing Random Forest classification results: 12,551 true negatives (73.9%), 4,436 true positives (26.1%), with only 2 false negatives.*
 
 **TABLE III**  
 **CONFUSION MATRIX - RANDOM FOREST (TEST SET)**

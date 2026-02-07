@@ -1,6 +1,6 @@
 """
-Motor Sensor Data Loader for Predictive Maintenance
-Handles loading and initial processing of 48 CSV files from multiple test sessions
+Motor Sensor Data Loader
+Handles loading and initial processing of sensor data from multiple test sessions.
 """
 
 import pandas as pd
@@ -19,7 +19,7 @@ class MotorDataLoader:
         
     def load_all_sessions(self) -> Dict[str, Dict[str, pd.DataFrame]]:
         """Load all motor data from all test sessions"""
-        print("Loading motor sensor data from all test sessions...")
+        # print("Loading motor sensor data from all test sessions...")
         
         session_dirs = [d for d in self.data_path.iterdir() if d.is_dir()]
         
@@ -41,7 +41,7 @@ class MotorDataLoader:
                     df['file_path'] = str(csv_file)
                     
                     self.raw_data[session_name][motor_name] = df
-                    print(f"Loaded {motor_name} from {session_name}: {len(df)} rows")
+                    # print(f"Loaded {motor_name} from {session_name}: {len(df)} rows")
                     
                 except Exception as e:
                     print(f"Error loading {csv_file}: {e}")
@@ -66,7 +66,7 @@ class MotorDataLoader:
             lambda x: x - x.min()
         )
         
-        print(f"Combined dataset: {len(self.combined_data)} total rows across {len(self.raw_data)} sessions")
+        print(f"Combined dataset: {len(self.combined_data)} rows across {len(self.raw_data)} sessions")
         return self.combined_data
     
     def get_data_summary(self) -> Dict:

@@ -1,6 +1,6 @@
 """
-🤖 Advanced Machine Learning Models for Motor Predictive Maintenance
-Implements Random Forest, XGBoost, and LSTM models with comprehensive evaluation
+Machine Learning Models for Motor Predictive Maintenance
+Implements Random Forest, XGBoost, and LSTM models with comprehensive evaluation.
 """
 
 import pandas as pd
@@ -67,6 +67,7 @@ class PredictiveMaintenanceModels:
         
         feature_cols.extend(['session_encoded', 'motor_encoded'])
         
+        self.feature_columns = feature_cols
         self.feature_columns = feature_cols
         print(f"   Created {len(feature_cols)} features for modeling")
         
@@ -137,15 +138,15 @@ class PredictiveMaintenanceModels:
             }).sort_values('importance', ascending=False)
         }
         
-        print(f"   ✅ Random Forest AUC: {auc_score:.4f}")
-        print(f"   📊 CV Score: {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
-        print(f"   🎯 Best params: {grid_search.best_params_}")
+        print(f"   Random Forest AUC: {auc_score:.4f}")
+        print(f"   CV Score: {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
+        print(f"   Best params: {grid_search.best_params_}")
         
         return best_rf, self.results['random_forest']
     
     def train_xgboost(self, test_size=0.2, random_state=42):
         """Train XGBoost model with hyperparameter tuning"""
-        print("\n🚀 Training XGBoost Model...")
+        print("\nTraining XGBoost Model...")
         
         # Prepare data
         X = self.data[self.feature_columns].fillna(0)
@@ -208,15 +209,15 @@ class PredictiveMaintenanceModels:
             }).sort_values('importance', ascending=False)
         }
         
-        print(f"   ✅ XGBoost AUC: {auc_score:.4f}")
-        print(f"   📊 CV Score: {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
-        print(f"   🎯 Best params: {grid_search.best_params_}")
+        print(f"   XGBoost AUC: {auc_score:.4f}")
+        print(f"   CV Score: {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
+        print(f"   Best params: {grid_search.best_params_}")
         
         return best_xgb, self.results['xgboost']
     
     def prepare_lstm_sequences(self, sequence_length=50, test_size=0.2, random_state=42):
         """Prepare sequences for LSTM model"""
-        print(f"\n🔄 Preparing LSTM sequences (length={sequence_length})...")
+        print(f"\nPreparing LSTM sequences (length={sequence_length})...")
         
         # Sort data by session, motor, and time
         sorted_data = self.data.sort_values(['session', 'motor_id', 'relative_time']).reset_index(drop=True)
@@ -248,7 +249,7 @@ class PredictiveMaintenanceModels:
         X_lstm = np.array(sequences)
         y_lstm = np.array(labels)
         
-        print(f"   ✅ Created {len(sequences)} sequences of shape {X_lstm.shape}")
+        print(f"   Created {len(sequences)} sequences of shape {X_lstm.shape}")
         
         # Split data
         X_train, X_test, y_train, y_test = train_test_split(
@@ -272,7 +273,7 @@ class PredictiveMaintenanceModels:
     
     def train_lstm(self, sequence_length=50, test_size=0.2, random_state=42):
         """Train LSTM model for time series prediction"""
-        print("\n🧠 Training LSTM Model...")
+        print("\nTraining LSTM Model...")
         
         # Prepare sequences
         X_train, X_test, y_train, y_test = self.prepare_lstm_sequences(
@@ -318,7 +319,7 @@ class PredictiveMaintenanceModels:
         class_weights = compute_class_weight('balanced', classes=classes, y=y_train)
         class_weight_dict = dict(zip(classes, class_weights))
         
-        print("   🏋️ Training LSTM...")
+        print("   Training LSTM...")
         history = model.fit(
             X_train, y_train,
             epochs=100,
@@ -347,14 +348,14 @@ class PredictiveMaintenanceModels:
             'sequence_length': sequence_length
         }
         
-        print(f"   ✅ LSTM AUC: {auc_score:.4f}")
-        print(f"   📈 Training completed in {len(history.history['loss'])} epochs")
+        print(f"   LSTM AUC: {auc_score:.4f}")
+        print(f"   Training completed in {len(history.history['loss'])} epochs")
         
         return model, self.results['lstm']
     
     def compare_models(self):
         """Compare all trained models"""
-        print("\n📊 MODEL COMPARISON RESULTS")
+        print("\nMODEL COMPARISON RESULTS")
         print("=" * 50)
         
         comparison_data = []
@@ -382,16 +383,16 @@ class PredictiveMaintenanceModels:
         best_model = comparison_df.loc[comparison_df['AUC Score'].idxmax(), 'Model']
         best_auc = comparison_df['AUC Score'].max()
         
-        print(f"\n🏆 BEST MODEL: {best_model} (AUC: {best_auc:.4f})")
+        print(f"\nBEST MODEL: {best_model} (AUC: {best_auc:.4f})")
         
         return comparison_df, best_model
     
     def create_model_evaluation_plots(self):
         """Create comprehensive evaluation plots"""
-        print("\n🎨 Creating model evaluation plots...")
+        print("\nCreating model evaluation plots...")
         
         fig, axes = plt.subplots(2, 3, figsize=(18, 12))
-        fig.suptitle('🤖 Machine Learning Model Evaluation Dashboard', fontsize=16)
+        fig.suptitle('Machine Learning Model Evaluation Dashboard', fontsize=16)
         
         colors = ['blue', 'orange', 'green']
         model_names = ['Random Forest', 'XGBoost', 'LSTM']
@@ -451,7 +452,7 @@ class PredictiveMaintenanceModels:
         history = self.results['lstm']['history']
         
         fig, axes = plt.subplots(1, 2, figsize=(15, 5))
-        fig.suptitle('🧠 LSTM Training History', fontsize=14)
+        fig.suptitle('LSTM Training History', fontsize=14)
         
         # Loss
         axes[0].plot(history.history['loss'], label='Training Loss')
